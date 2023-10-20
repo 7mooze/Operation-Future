@@ -9,6 +9,5 @@ public abstract class Location{
 	
 	public ArrayList<Object> objects;
 	public ArrayList<Character> characters;
-
-
+	
 }
