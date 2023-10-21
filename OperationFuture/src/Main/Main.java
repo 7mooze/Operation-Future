@@ -35,8 +35,8 @@ public class Main
 				+ "'\"'     \\         \"    _L       |-_,--'          "+colorText("\u25C9 Prominent City", 255,0,0)+" /. (|    \n"
 				+ "         |        "+colorText("\u25C9 Night city", 255, 0,0)+"    _)_.\\\\._<> {}              _,' /  '   \n"
 				+ "         `.         /          [_/_'` `\"(                <'}  )       \n"
-				+ "          \\\\    .-. )          /   `-'\"..' `"+colorText("\u25C9 HQ", 51,204,51)+"._          _)  '        \n"
-				+ "   `        \\  (  `(          /         `:\\  > \\  ,-^.  /' '          \n"
+				+ "          \\\\    .-. )          /   `-'\"..'  "+colorText("\u25C9 HQ", 51,204,51)+"            _)  '        \n"
+				+ "            \\  (  `(          /         `:\\  > \\  ,-^.  /' '          \n"
 				+ "             `._,   \"\"        | "+colorText("Sahara Desert", 255, 0, 0)+"   \\`'   \\|   ?_)  {\\          \n"
 				+ "                `=.---.       `._._       ,'     \"`  |' ,- '.         \n"
 				+ "                  |    `-._        |     /          `:`<_|=--._       \n"
@@ -65,7 +65,7 @@ public class Main
 		
 
 		
-		OFSensor sensor = OFSensor.startClient("192.168.0.119", 57829);
+		OFSensor sensor = OFSensor.startClient("192.168.0.116", 63136);
 
 		while(true) {
 			
