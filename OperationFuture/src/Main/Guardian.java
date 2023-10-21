@@ -28,7 +28,7 @@ public class Guardian {
 				+ "6. RPG (400 ATK)\n"
 				+ "7. Nuclear Cannon (500 ATK)\n");
 		
-		System.out.print("Select Your Weapon by typing the number:");
+		System.out.print("Select Your Weapon by typing the number: ");
 		select = scan.nextInt();
 		
 		
@@ -68,7 +68,7 @@ public class Guardian {
 				+ "4. Medium Heavy Armor (400 DEF)\n"
 				+ "5. Ultimate Armor (500 DEF)\n");
 		
-		System.out.print("Select Your Armor by typing the number:");
+		System.out.print("Select Your Armor by typing the number: ");
 		select = scan.nextInt();
 		
 	switch (select) {
