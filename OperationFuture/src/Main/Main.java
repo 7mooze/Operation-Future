@@ -20,6 +20,11 @@ public class Main
 		}
 	}
 	
+	public static String colorText( String text, int r, int g, int b ) 
+	{
+		return "\u001b[38;2;" + r + ";" + g + ";" + b + "m" + text + "\u001b[0m" ;
+	}
+	
 	public static void main(String[] args) throws InterruptedException, UnknownHostException, IOException, ParseException 
 	{
 		
@@ -27,19 +32,19 @@ public class Main
 				+ "  _.___ _ _<_>`!(._`.`-.    /        _._     `_ ,_/  '  '-._.---.-.__ \n"
 				+ ".{     \" \" `-==,',._\\{  \\  / {)     / _ \">_,-' `                 /-/_ \n"
 				+ " \\_.:--.       `._ )`^-. \"'      , [_/(                       __,/-'  \n"
-				+ "'\"'     \\         \"    _L       |-_,--'          ◉ Prominent City /. (|    \n"
-				+ "         |        ◉ Night city    _)_.\\\\._<> {}              _,' /  '   \n"
+				+ "'\"'     \\         \"    _L       |-_,--'          "+colorText("\u25C9 Prominent City", 255,0,0)+" /. (|    \n"
+				+ "         |        "+colorText("\u25C9 Night city", 255, 0,0)+"    _)_.\\\\._<> {}              _,' /  '   \n"
 				+ "         `.         /          [_/_'` `\"(                <'}  )       \n"
-				+ "          \\\\    .-. )          /   `-'\"..' `◉ HQ._          _)  '        \n"
+				+ "          \\\\    .-. )          /   `-'\"..' `"+colorText("\u25C9 HQ", 0,255,0)+"._          _)  '        \n"
 				+ "   `        \\  (  `(          /         `:\\  > \\  ,-^.  /' '          \n"
-				+ "             `._,   \"\"        | Sahara Desert   \\`'   \\|   ?_)  {\\          \n"
+				+ "             `._,   \"\"        | "+colorText("Sahara Desert", 255, 0, 0)+"   \\`'   \\|   ?_)  {\\          \n"
 				+ "                `=.---.       `._._       ,'     \"`  |' ,- '.         \n"
 				+ "                  |    `-._        |     /          `:`<_|=--._       \n"
-				+ "   Pacific Ocean  (        >       .     | ,          `=.__.`-'\\      \n"
+				+ "   "+ colorText("Pacific Ocean", 255, 0, 0) +"  (        >       .     | ,          `=.__.`-'\\      \n"
 				+ "                   `.     /        |     |{|              ,-.,\\     . \n"
 				+ "                    |   ,'          \\   / `'            ,\"     \\      \n"
 				+ "                    |  /             |_'                |  __  /      \n"
-				+ "                    | |                                 '-'  `-'   \\. ◉ Hidden Location \n"
+				+ "                    | |                                 '-'  `-'   \\. "+colorText("\u25C9 Hidden Location", 110, 0,4)+" \n"
 				+ "                    |/                                        \"    /  \n"
 				+ "                    \\.                                            '   \n"
 				+ "                                                                      \n"
