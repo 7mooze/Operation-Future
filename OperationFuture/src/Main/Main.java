@@ -22,7 +22,7 @@ public class Main
 	
 	public static String colorText( String text, int r, int g, int b ) 
 	{
-		return "\u001b[38;2;" + r + ";" + g + ";" + b + "m" + text + "\u001b[0m" ;
+		return "\u001b[38;2;" + r + ";" + g + ";" + b + "m" + text + "\u001b[0m";
 	}
 	
 	public static void main(String[] args) throws InterruptedException, UnknownHostException, IOException, ParseException 
