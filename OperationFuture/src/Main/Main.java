@@ -1,5 +1,13 @@
 package Main;
 
+import java.io.IOException;
+import java.net.UnknownHostException;
+
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import Input.OFSensor;
+
 public class Main 
 {
 
@@ -12,7 +20,7 @@ public class Main
 		}
 	}
 	
-	public static void main(String[] args) throws InterruptedException 
+	public static void main(String[] args) throws InterruptedException, UnknownHostException, IOException, ParseException 
 	{
 		
 		animateText("Traveling to Sahara Desert...\r");
@@ -23,8 +31,19 @@ public class Main
 		
 		//g1.getRating();
 		
-		System.out.println("this is my brach");
 
+		
+		OFSensor sensor = OFSensor.startClient("192.168.0.119", 57829);
+
+		while(true) {
+			
+			double Swing= sensor.readDouble("gyroRotationX");
+			if(Swing >= 10.0 | Swing <= -10.0 
+					) System.out.println("Swinging motion detected!\nThe ball has been thrown\n");
+
+			
+		}
+		
 	}
 
 }
