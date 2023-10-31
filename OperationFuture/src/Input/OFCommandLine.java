@@ -1,37 +1,66 @@
 package Input;
 
-import java.io.File;
-import java.io.IOException;
+import Graphics.*;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
-public class OFCommandLine 
-{	
-	public void renderFrame() throws InterruptedException, IOException, UnsupportedAudioFileException, LineUnavailableException
+public class OFCommandLine implements Runnable
+{
+	OFAnimationTimeline timeline;
+	OFSignal frameDone;
+	OFScene currScene;
+	
+	public OFCommandLine( OFAnimationTimeline timeline, OFSignal signal, OFScene startingScene ) 
 	{
-		String hpBar = "█";
-		int time = 60;
-		File musicPath = new File("testAudio.wav");
-		if(musicPath.exists()) 
+		this.timeline = timeline;
+		this.frameDone = signal;
+		this.currScene = startingScene;
+		Thread commandLine = new Thread(this);
+		commandLine.start();
+	}
+	
+	public static void clearScreen() 
+	{
+		System.out.print("\033[?25l\033[H\033[0K"); //Sets cursor pos to 0,0 and clears
+	}
+	
+	public synchronized void setScene( OFScene scene ) 
+	{
+		currScene = scene;
+	}
+	
+	public synchronized OFScene getScene() 
+	{
+		return currScene;
+	}
+	
+	private static void printAt( String data, int x, int y )
+	{
+		System.out.print("\033[38;2;0;255;0m\033["+y+";"+x+"H"+data+"\033[0m"); //TODO: implement Colors here. maybe add as attribute for OFAnimatable?
+	}
+
+	public void render()
+	{
+		for( OFAnimatable anim : getScene().sObjects ) 
 		{
-			AudioInputStream audioInput = AudioSystem.getAudioInputStream(musicPath);
-			Clip clip = AudioSystem.getClip();
-			clip.open(audioInput);
-			clip.start();
+			printAt( anim.data, anim.x, anim.y );
 		}
-		
+	}
+
+	@Override
+	public void run() 
+	{
 		while(true) 
 		{
-			System.out.print("\033[?25l\033[H\033[0K");
-			System.out.print("\033[38;2;0;255;0m\033[0;0H"+ hpBar +"\033[0m");
-			System.out.print("\033[38;2;255;0;0m\033[0;117H"+ time +"\033[0m");
-			Thread.sleep(42);
-			hpBar += "█";
-			time--;
+			try 
+			{
+				render();
+				frameDone.signal();
+				Thread.sleep(42); // we assume all updates are done within the 42 ms otherwise we need another OFSignal to signal when updates are done to all data within scene
+				clearScreen();
+			} 
+			catch (InterruptedException e) 
+			{
+				e.printStackTrace();
+			}
 		}
 	}
 }

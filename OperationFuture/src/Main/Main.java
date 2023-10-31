@@ -5,15 +5,10 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.UnknownHostException;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
-import javax.sound.sampled.LineUnavailableException;
-import javax.sound.sampled.UnsupportedAudioFileException;
-
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
+import Graphics.*;
 import Input.*;
 
 public class Main 
@@ -33,7 +28,7 @@ public class Main
 		return "\u001b[38;2;" + r + ";" + g + ";" + b + "m" + text + "\u001b[0m";
 	}
 	
-	public static void main(String[] args) throws InterruptedException, UnknownHostException, IOException, ParseException, UnsupportedAudioFileException, LineUnavailableException 
+	public static void main(String[] args) throws InterruptedException, UnknownHostException, IOException, ParseException
 	{
 		
 		/*System.out.println("          . _..::__:  ,-\"-\"._       |]       ,     _,.__              \n"
@@ -83,8 +78,32 @@ public class Main
 			
 		}*/
 		
-		OFCommandLine commandline = new OFCommandLine();
-		commandline.renderFrame();
+		OFScene tutorialScene = new OFScene();
+		
+		OFSignal frameDone = new OFSignal();
+		
+		OFAnimationTimeline gameTimeline = new OFAnimationTimeline( frameDone );
+		
+		testHPBar playerHP = new testHPBar( gameTimeline );
+		playerHP.x = 117;
+		testHPBar bossHP = new testHPBar( gameTimeline );
+		bossHP.x = 117;
+		
+		tutorialScene.addObject( playerHP );
+		tutorialScene.addObject( bossHP );
+		
+		OFCommandLine gameCommandline = new OFCommandLine( gameTimeline, frameDone, tutorialScene );
+		
+		OFEvent takeDMG = new OFEvent(playerHP, "....", "What's your next move????");
+		
+		Thread.sleep( 3*1000 );
+		
+		gameTimeline.sendEvent(takeDMG);
+		
+		//Thread.sleep( 3*1000 );  
+		
+		//gameCommandline.setScene( finalBossScene );
+		
 	}
 
 }
