@@ -2,11 +2,8 @@ package Scenes;
 
 import Map.Map;
 import Map.State;
-import UI.UI;
 
-public class SaharaDesert extends Location implements State{
-	
-	UI ui = new UI();
+public class HQ_ implements State{
 
 	@Override
 	public void prev(Map map) {
@@ -22,8 +19,10 @@ public class SaharaDesert extends Location implements State{
 
 	@Override
 	public void printStatus() {
-		ui.println("you are now at the desert");
+		// TODO Auto-generated method stub
 		
 	}
+
+
 
 }
