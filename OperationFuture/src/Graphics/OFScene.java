@@ -15,4 +15,10 @@ public class OFScene
 	{
 		sObjects.add(obj);
 	}
+	
+	public void addObjects( OFAnimatable[] obj ) 
+	{
+		for( OFAnimatable aObj : obj )
+			sObjects.add(aObj);
+	}
 }

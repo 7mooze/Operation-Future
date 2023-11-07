@@ -1,19 +1,20 @@
-package Input;
+package Graphics;
 
-import Graphics.*;
+import Input.OFSignal;
 
 public class OFCommandLine implements Runnable
 {
 	OFAnimationTimeline timeline;
 	OFSignal frameDone;
 	OFScene currScene;
+	Thread commandLine;
 	
 	public OFCommandLine( OFAnimationTimeline timeline, OFSignal signal, OFScene startingScene ) 
 	{
 		this.timeline = timeline;
 		this.frameDone = signal;
 		this.currScene = startingScene;
-		Thread commandLine = new Thread(this);
+		commandLine = new Thread(this);
 		commandLine.start();
 	}
 	
@@ -32,17 +33,22 @@ public class OFCommandLine implements Runnable
 		return currScene;
 	}
 	
-	private static void printAt( String data, int x, int y )
+	private static void printAt( OFAnimatable obj )
 	{
-		System.out.print("\033[38;2;0;255;0m\033["+y+";"+x+"H"+data+"\033[0m"); //TODO: implement Colors here. maybe add as attribute for OFAnimatable?
+		System.out.print("\033[" + obj.y + ";" + obj.x + "H" + obj.data);
 	}
 
 	public void render()
 	{
 		for( OFAnimatable anim : getScene().sObjects ) 
 		{
-			printAt( anim.data, anim.x, anim.y );
+			printAt( anim );
 		}
+	}
+	
+	public Thread getThread() 
+	{
+		return commandLine;
 	}
 
 	@Override
@@ -54,7 +60,7 @@ public class OFCommandLine implements Runnable
 			{
 				render();
 				frameDone.signal();
-				Thread.sleep(42); // we assume all updates are done within the 42 ms otherwise we need another OFSignal to signal when updates are done to all data within scene
+				Thread.sleep(42);
 				clearScreen();
 			} 
 			catch (InterruptedException e) 

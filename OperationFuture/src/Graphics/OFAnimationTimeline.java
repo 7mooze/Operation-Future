@@ -1,23 +1,38 @@
 package Graphics;
 
 import java.util.ArrayList;
-
 import Input.OFSignal;
 
 public class OFAnimationTimeline implements OFSubject, Runnable
 {
-	ArrayList<OFObserver> dObjects;
-	ArrayList<OFEvent> eventQueue;
-	OFSignal signal;
-	Thread animationTimeline;
+	private static OFAnimationTimeline _instance;
+	private static ArrayList<OFObserver> dObjects;
+	private static ArrayList<OFEvent> eventQueue;
+	private OFSignal frameDone;
+	private Thread animationTimeline;
 	
-	public OFAnimationTimeline( OFSignal signal ) 
+	private OFAnimationTimeline( OFSignal frameDone ) 
 	{
 		dObjects = new ArrayList <OFObserver>();
 		eventQueue = new ArrayList <OFEvent>();
-		this.signal = signal;
+		this.frameDone = frameDone;
 		animationTimeline = new Thread(this);
 		animationTimeline.start();
+	}
+	
+	public static synchronized OFAnimationTimeline getTimeline( OFSignal frameDone )
+	{
+		if( _instance == null ) 
+		{
+			_instance = new OFAnimationTimeline( frameDone );
+		}
+	
+		return _instance;
+	}
+	
+	public static synchronized OFAnimationTimeline getTimeline() 
+	{
+		return _instance;
 	}
 	
 	@Override
@@ -56,7 +71,7 @@ public class OFAnimationTimeline implements OFSubject, Runnable
 	{
 		while(true) 
 		{
-			signal.await();
+			frameDone.await();
 			submitEvents();
 		}
 	}

@@ -6,12 +6,18 @@ public class OFAnimatable implements OFObserver
 	public String data;
 	public int x,y; //Starting pos CANNOT change (const)
 	
-	public OFAnimatable( OFAnimationTimeline timeline ) 
+	public OFAnimatable() 
 	{
-		this.timeline = timeline;
+		this.timeline = OFAnimationTimeline.getTimeline();
 		timeline.registerObserver( this );
 	}
 
 	@Override
-	public void update( OFEvent e ) {}
+	public void update( OFEvent e ) 
+	{
+		if( e.origin == this ) 
+		{
+			data = e.payload;
+		}
+	}
 }

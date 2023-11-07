@@ -1,15 +1,14 @@
 package Main;
 
 import java.io.IOException;
-import java.io.OutputStream;
-import java.io.PrintStream;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 
-import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import Graphics.*;
 import Input.*;
+import UI.*;
 
 public class Main 
 {
@@ -30,80 +29,35 @@ public class Main
 	
 	public static void main(String[] args) throws InterruptedException, UnknownHostException, IOException, ParseException
 	{
+		OFSignal frameDone = new OFSignal();
+		OFAnimationTimeline animator = OFAnimationTimeline.getTimeline( frameDone );
 		
-		/*System.out.println("          . _..::__:  ,-\"-\"._       |]       ,     _,.__              \n"
-				+ "  _.___ _ _<_>`!(._`.`-.    /        _._     `_ ,_/  '  '-._.---.-.__ \n"
-				+ ".{     \" \" `-==,',._\\{  \\  / {)     / _ \">_,-' `                 /-/_ \n"
-				+ " \\_.:--.       `._ )`^-. \"'      , [_/(                       __,/-'  \n"
-				+ "'\"'     \\         \"    _L       |-_,--'          "+colorText("\u25C9 Prominent City", 255,0,0)+" /. (|    \n"
-				+ "         |        "+colorText("\u25C9 Night city", 255, 0,0)+"    _)_.\\\\._<> {}              _,' /  '   \n"
-				+ "         `.         /          [_/_'` `\"(                <'}  )       \n"
-				+ "          \\\\    .-. )          /   `-'\"..'  "+colorText("\u25C9 HQ", 51,204,51)+"            _)  '        \n"
-				+ "            \\  (  `(          /         `:\\  > \\  ,-^.  /' '          \n"
-				+ "             `._,   \"\"        | "+colorText("Sahara Desert", 255, 0, 0)+"   \\`'   \\|   ?_)  {\\          \n"
-				+ "                `=.---.       `._._       ,'     \"`  |' ,- '.         \n"
-				+ "                  |    `-._        |     /          `:`<_|=--._       \n"
-				+ "   "+ colorText("Pacific Ocean", 255, 0, 0) +"  (        >       .     | ,          `=.__.`-'\\      \n"
-				+ "                   `.     /        |     |{|              ,-.,\\     . \n"
-				+ "                    |   ,'          \\   / `'            ,\"     \\      \n"
-				+ "                    |  /             |_'                |  __  /      \n"
-				+ "                    | |                                 '-'  `-'   \\. "+colorText("\u25C9 Hidden Location", 110, 0,4)+" \n"
-				+ "                    |/                                        \"    /  \n"
-				+ "                    \\.                                            '   \n"
-				+ "                                                                      \n"
-				+ "                     ,/           ______._.--._ _..---.---------.     \n"
-				+ "__,-----\"-..?----_/ )\\    . ,-'\"             \"                  (__--/\n"
-				+ "                      /__/\\/              Antarctica                            \n"
-				+ "-----------------------------------------------------------------------------------------");
+		OFScene intro = new OFScene();
+		OFCenter intro_title = new OFCenter( "████████████████████ OPERATION FUTURE ████████████████████" );
+		OFText intro_text = new OFText( "", 1, 3 );
 		
+		intro.addObjects( new OFAnimatable[] { intro_title, intro_text } );
+		OFCommandLine game = new OFCommandLine( animator, frameDone, intro );
 		
+		String introString = "In the year 2050, the world grapples with food shortages, poverty, and the looming threat of global conflict over dwindling resources. A unified global organization, known as \"The Nexus,\" emerged, founded by an enigmatic figure. It brokered peace among nations and enforced equitable resource distribution. However, this newfound unity is put to the test when five colossal alien warships appear on the global stage.\n"
+				+ "\n"
+				+ "These alien vessels release massive robots that descend upon densely populated regions, causing widespread devastation and fracturing The Nexus. Mr. Victor Steele, a former UN general operating undercover, is chosen by the surviving committee members to combat these behemoth invaders. The committee establishes a secret HQ known only to a select few. Victor Steele plans to assemble the world's brightest minds and engineers for \"OPERATION FUTURE\" - a mission to secure humanity's survival.\n"
+				+ "\n"
+				+ "While the destruction of these giant robots continued for months, the General, in hiding, searches for the right lieutenant. Ultimately, you, the player, are chosen. You are led to a covert base where a formidable robot, \"Guardian,\" created by The Nexus's top minds, awaits. The General appoints you as the pilot of this mechanical giant, declaring,\n"
+				+ "\n"
+				+ "Victor: Pilot, with this Guardian, we'll finally stand up against the alien menace and reclaim our world!\n"
+				+ "";
 		
-		animateText("Traveling to Sahara Desert...\r");
-		//animateText("Traveling to Sahara Desert...\r");
-		//Guardian g1 = new Guardian();
-		
-		//g1.build();
-		
-		//g1.getRating();
-		
-
-		
-		OFSensor sensor = OFSensor.startClient("192.168.50.240", 60434);
-
-		while(true) {
-			
-			double Swing= sensor.readDouble("gyroRotationX");
-			if(Swing >= 10.0 | Swing <= -10.0 ) System.out.println("Swinging motion detected!\nThe ball has been thrown\n");
-
-			
+		/*for( int i=0; i<introString.length(); i++ )
+		{
+			OFEvent writeChar = new OFEvent( intro_text, "", intro_text.data + introString.charAt(i) );
+			animator.sendEvent( writeChar );
+			Thread.sleep( 50 );
 		}*/
 		
-		OFScene tutorialScene = new OFScene();
 		
-		OFSignal frameDone = new OFSignal();
-		
-		OFAnimationTimeline gameTimeline = new OFAnimationTimeline( frameDone );
-		
-		testHPBar playerHP = new testHPBar( gameTimeline );
-		playerHP.x = 117;
-		testHPBar bossHP = new testHPBar( gameTimeline );
-		bossHP.x = 117;
-		
-		tutorialScene.addObject( playerHP );
-		tutorialScene.addObject( bossHP );
-		
-		OFCommandLine gameCommandline = new OFCommandLine( gameTimeline, frameDone, tutorialScene );
-		
-		OFEvent takeDMG = new OFEvent(playerHP, "....", "What's your next move????");
-		
-		Thread.sleep( 3*1000 );
-		
-		gameTimeline.sendEvent(takeDMG);
-		
-		//Thread.sleep( 3*1000 );  
-		
-		//gameCommandline.setScene( finalBossScene );
-		
+		Scanner sysin = new Scanner( System.in );
+		String test = sysin.nextLine();
 	}
 
 }
