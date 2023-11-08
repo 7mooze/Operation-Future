@@ -1,4 +1,6 @@
-package Map;
+package Sahara_grid;
+
+import Map.Map;
 
 public interface State {
 	public void prev(Map map);

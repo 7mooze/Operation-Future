@@ -1,7 +1,7 @@
 package Scenes;
 
 import Map.Map;
-import Map.State;
+import Sahara_grid.State;
 
 public class HQ_  extends Location{
 
