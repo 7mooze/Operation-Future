@@ -13,6 +13,7 @@ public class Game implements Runnable{
 	private UI ui = new UI();
 	private Pilot pilot = new Pilot(ui);
 	private HQ hq = HQ.getInstance(ui); //singilton --> subject
+	private Guardian g = new Guardian();
 	
 	private Thread game;
 	
@@ -112,8 +113,6 @@ public class Game implements Runnable{
 		ui.println("Now "+pilot.getName()+", please choose your location of deployment by typing its name: \n");
 		
 		while(!valid) {
-			
-			ui.println("Please choose your location of deployment by typing its name: \n");
 			ui.println("1. Sahara Desert - 10 km away\n" // let 1 km equal 1 second\
 					+ "2. Prominent City - 20 km away\n"
 					+ "3. Night City - 40 km away\n"
@@ -145,6 +144,7 @@ public class Game implements Runnable{
 			}else {
 				//invalid location, try again
 				ui.println("\nInvalid location, try again\n");
+				ui.println("Please choose your location of deployment by typing its name: \n");
 				
 			}
 			
@@ -163,13 +163,19 @@ public class Game implements Runnable{
 			}
 		}
 		
-		ui.println("\nyou are now at: " + pilot.getCurrentLocation().description);
+		ui.println("\nHQ: You have now arrived at: " + pilot.getCurrentLocation().name+"!");
+		ui.println("Based on our analysis, here are all the information about the enemy demographic present here:\n");
 		
+		
+		for(int i=0; i <pilot.getCurrentLocation().aliens.size(); i++) {
+		
+			ui.println("- "+pilot.getCurrentLocation().aliens.get(i).printAlien());
+		}
+		
+		ui.println("\nHQ: "+pilot.getName()+", based on this info, you can now customize your Guardian options and we will deliver the options to you through air service. Your guardian’s maximum potential is determined by the Overall Rating value, choose your items wisely to reach a high Overall Rating in order to operate your guardian. The maximum Overall Rating you can reach is 1000.\n");
+		
+		g.build();
 		
 		
 	}
-	
-	
-	
-
 }
