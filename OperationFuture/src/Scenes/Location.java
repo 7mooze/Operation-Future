@@ -11,3 +11,4 @@ public abstract class Location{
 	public ArrayList<Character> characters;
 	
 }
+

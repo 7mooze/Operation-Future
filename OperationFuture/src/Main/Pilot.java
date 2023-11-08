@@ -1,5 +1,6 @@
 package Main;
 
+import Map.*;
 import Scenes.Location;
 import UI.UI;
 
@@ -13,7 +14,7 @@ public class Pilot implements Runnable {
 	
 	public Pilot(UI ui) {
 		this.ui = ui;
-		//this.currentLocation = currentLocation;
+		this.currentLocation = Map.map.get(game_locations.HQ.getLocationIndex());
 		
 		pilot = new Thread (this);
 		pilot.start();
@@ -27,6 +28,14 @@ public class Pilot implements Runnable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+	
+	public void setLocation(Location currentLocation) {
+		this.currentLocation = currentLocation;
+	}
+	
+	public Location getCurrentLocation() {
+		return currentLocation;
 	}
 
 

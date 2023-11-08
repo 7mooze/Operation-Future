@@ -3,25 +3,15 @@ package Scenes;
 import Map.Map;
 import Map.State;
 
-public class HQ_ implements State{
+public class HQ_  extends Location{
 
-	@Override
-	public void prev(Map map) {
-		// TODO Auto-generated method stub
+	public HQ_() {
+		name = "The HQ";
+		description = "Thello HQ\n";
 		
-	}
-
-	@Override
-	public void next(Map map) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void printStatus() {
-		// TODO Auto-generated method stub
-		
-	}
+	}	
+	
+	
 
 
 

@@ -5,6 +5,7 @@ import java.util.Scanner;
 import UI.UI;
 import Characters.HQ; //should not extend character
 import Map.Map;
+import Map.game_locations;
 import Scenes.*;
 
 public class Game implements Runnable{
@@ -15,7 +16,7 @@ public class Game implements Runnable{
 	
 	private Thread game;
 	
-	private Map map = new Map();
+	//private Map map1 = new Map();
 	
 	public Game() {
 		
@@ -45,7 +46,8 @@ public class Game implements Runnable{
 		Scanner input = new Scanner(System.in);  //takes user input
 		String name;
 		String userInput;
-		boolean isReady = false;
+		boolean isReady = false; boolean valid = false;
+		int distance=0;
 		
 		String introString = "In the year 2050, the world grapples with food shortages, poverty, and the looming threat of global conflict over dwindling resources. A unified global organization, known as \"The Nexus,\" emerged, founded by an enigmatic figure. It brokered peace among nations and enforced equitable resource distribution. However, this newfound unity is put to the test when five colossal alien warships appear on the global stage.\n"
 				+ "\n"
@@ -106,20 +108,63 @@ public class Game implements Runnable{
 				+ "                      /__/\\/              Antarctica                            \n"
 				+ "-----------------------------------------------------------------------------------------");
 		
+		
 		ui.println("Now "+pilot.getName()+", please choose your location of deployment by typing its name: \n");
-		ui.println("1. Sahara Desert - 10 km away\n" // let 1 km equal 1 second\
-				+ "2. Prominent City - 20 km away\n"
-				+ "3. Night City - 40 km away\n"
-				+ "4. Pacific Ocean - 50 km away\n");
 		
-		
-		userInput = input.nextLine();
-		
-		if(userInput.equalsIgnoreCase("Sahara Desert")) {
-			map.setState(new SaharaDesert());
+		while(!valid) {
+			
+			ui.println("Please choose your location of deployment by typing its name: \n");
+			ui.println("1. Sahara Desert - 10 km away\n" // let 1 km equal 1 second\
+					+ "2. Prominent City - 20 km away\n"
+					+ "3. Night City - 40 km away\n"
+					+ "4. Pacific Ocean - 50 km away\n"
+					+ "5. Antarctica - 100 km away\n");
+			
+			userInput = input.nextLine();
+			
+			if(userInput.equalsIgnoreCase("Sahara Desert")) {
+				pilot.setLocation(Map.map.get(game_locations.SAHARA.getLocationIndex()));
+				distance = 10;
+				valid = true;
+			}else if(userInput.equalsIgnoreCase("Prominent City")) {
+				pilot.setLocation(Map.map.get(game_locations.PROMINENT.getLocationIndex()));
+				valid = true;
+				distance = 20;
+			}else if (userInput.equalsIgnoreCase("Night City")) {
+				//set location
+				valid = true;
+				distance = 40;
+			}else if (userInput.equalsIgnoreCase("Pacific Ocean")) {
+				pilot.setLocation(Map.map.get(game_locations.PACIFIC.getLocationIndex()));
+				valid = true;
+				distance = 50;
+			}else if (userInput.equalsIgnoreCase("Antarctica")) {
+				pilot.setLocation(Map.map.get(game_locations.ANTARCTICA.getLocationIndex()));
+				valid = true;
+				distance = 100;
+			}else {
+				//invalid location, try again
+				ui.println("\nInvalid location, try again\n");
+				
+			}
+			
 		}
 		
-		map.printStatus();
+		ui.println("");
+		
+		for(int i=1; i<=distance; i++) {
+			ui.println("Traveling to " + pilot.getCurrentLocation().name+" in "+i+"s");
+			
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		ui.println("\nyou are now at: " + pilot.getCurrentLocation().description);
+		
 		
 		
 	}

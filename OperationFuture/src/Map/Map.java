@@ -1,26 +1,11 @@
 package Map;
 
-import Scenes.HQ_;
+import java.util.ArrayList;
+import java.util.Arrays;
+import Scenes.*;
 
 public class Map {
-	
-	
-private State state = new HQ_();
-	
-	public void previousState(){
-		state.prev(this);
-	}
-	
-	public void nextState() { 
-		state.next(this); 
-		}
-	
-	public void printStatus() { 
-		state.printStatus(); 
-	}
-	
-	public void setState(State state) {
-			this.state = state;
-	}
-
+		
+		public static ArrayList <Location> map = new ArrayList<>(Arrays.asList(new HQ_(), new SaharaDesert(), new NightCity(), new ProminentCity(), new PacificOcean(), new Antarctica(), new HiddenLocation()));
+		
 }
