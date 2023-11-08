@@ -21,20 +21,20 @@ public class Pilot implements Runnable {
 	}
 
 
-	public String getName() {
+	public synchronized String getName() {
 		return name;
 	}
 
 
-	public void setName(String name) {
+	public synchronized void setName(String name) {
 		this.name = name;
 	}
 	
-	public void setLocation(Location currentLocation) {
+	public synchronized void setLocation(Location currentLocation) {
 		this.currentLocation = currentLocation;
 	}
 	
-	public Location getCurrentLocation() {
+	public synchronized Location getCurrentLocation() {
 		return currentLocation;
 	}
 

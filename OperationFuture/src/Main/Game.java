@@ -199,6 +199,7 @@ public class Game implements Runnable{
 		}
 		
 		ui.println(pilot.getName()+": Received items \n");
+		
 		ui.println("\nHQ: OK "+pilot.getName()+", Here is our AI’s analysis of your Guardian’s surroundings. You are free to choose how to move around, you are on your own now. Good luck.\n");
 		
 	}
