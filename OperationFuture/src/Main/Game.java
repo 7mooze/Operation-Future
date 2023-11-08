@@ -1,5 +1,7 @@
 package Main;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Scanner;
 
 import UI.UI;
@@ -40,6 +42,27 @@ public class Game implements Runnable{
 		return "\u001b[38;2;" + r + ";" + g + ";" + b + "m" + text + "\u001b[0m";
 	}
 	
+	private String filter(String input) {
+	
+		String Clean_text = input;
+		
+		Clean_text = Clean_text.trim();
+		Clean_text = Clean_text.replaceAll("[ \t]+", " ");
+		Clean_text = input.toLowerCase();
+		 
+		return Clean_text;
+	}
+	
+	
+	private ArrayList<String> parse(String input){
+		
+		String[] parsedText = input.split(" ");
+		
+		ArrayList<String> Parsed_Text = new ArrayList<String>(Arrays.asList(parsedText));
+		
+		return Parsed_Text;
+	}
+	
 	
 	@Override
 	public void run() {
@@ -47,6 +70,10 @@ public class Game implements Runnable{
 		Scanner input = new Scanner(System.in);  //takes user input
 		String name;
 		String userInput;
+		String Clean_text = null;
+		ArrayList<String> Parsed_text = null;
+		
+		
 		boolean isReady = false; boolean valid = false; boolean isFinal = false;
 		int distance=0;
 		
@@ -83,15 +110,15 @@ public class Game implements Runnable{
 		}
 		
 		ui.println("\nHQ: Here are the locations of the warships. Upon arrival at your preferred location, we will give you information about the enemy robots through our efficient AI algorithms. Your goal is to destroy the robot controlling the other soldier robots in each region. Doing so will free the location from any more threats.\n\nTo win this war, you need to reach the hidden location which, based on our AI analysis, has assumed its presence on the map but cannot be confirmed unless we defeat all these warships. \n");
-		
+			
 		ui.println("          . _..::__:  ,-\"-\"._       |]       ,     _,.__              \n"
 				+ "  _.___ _ _<_>`!(._`.`-.    /        _._     `_ ,_/  '  '-._.---.-.__ \n"
 				+ ".{     \" \" `-==,',._\\{  \\  / {)     / _ \">_,-' `                 /-/_ \n"
 				+ " \\_.:--.       `._ )`^-. \"'      , [_/(                       __,/-'  \n"
 				+ "'\"'     \\         \"    _L       |-_,--'          "+colorText("\u25C9 Prominent City", 255,0,0)+" /. (|    \n"
-				+ "         |        "+colorText("\u25C9 Night city", 255, 0,0)+"    _)_.\\\\._<> {}              _,' /  '   \n"
+				+ "         |        "+colorText("\u25C9 Night city", 255, 0,0)+"    _)_.\\\\._<> {}              _,' /  '   \n"     //green 51,204,51
 				+ "         `.         /          [_/_'` `\"(                <'}  )       \n"
-				+ "          \\\\    .-. )          /   `-'\"..'  "+colorText("\u25C9 HQ", 51,204,51)+"            _)  '        \n"
+				+ "          \\\\    .-. )          /   `-'\"..'  "+colorText("\u25C9 HQ", 0,0,255)+"            _)  '        \n"
 				+ "            \\  (  `(          /         `:\\  > \\  ,-^.  /' '          \n"
 				+ "             `._,   \"\"        | "+colorText("Sahara Desert", 255, 0, 0)+"   \\`'   \\|   ?_)  {\\          \n"
 				+ "                `=.---.       `._._       ,'     \"`  |' ,- '.         \n"
@@ -102,12 +129,15 @@ public class Game implements Runnable{
 				+ "                    |  /             |_'                |  __  /      \n"
 				+ "                    | |                                 '-'  `-'   \\. "+colorText("\u25C9 Hidden Location", 110, 0,4)+" \n"
 				+ "                    |/                                        \"    /  \n"
-				+ "                    \\.                                            '   \n"
-				+ "                                                                      \n"
-				+ "                     ,/           ______._.--._ _..---.---------.     \n"
-				+ "__,-----\"-..?----_/ )\\    . ,-'\"             \"                  (__--/\n"
-				+ "                      /__/\\/              Antarctica                            \n"
-				+ "-----------------------------------------------------------------------------------------");
+				+ "                    \\.                                            '      \n"
+				+ "                                                                             .—---------------------.\n"
+				+ "                     ,/           ______._.--._ _..---.---------.            | "+colorText("\u25C9 Current Location", 0,0,255)+"   |\n"
+				+ "__,-----\"-..?----_/ )\\    . ,-'\"             \"                  (__--/       | "+colorText("\u25C9 Cleared Location", 51,204,51)+"   |\n"
+				+ "                      /__/\\/              Antarctica                         | "+colorText("\u25C9 Remaining Location", 255, 0, 0)+" | \n"
+				+ " 									      —---------------------		      			\n"
+				+ "------------------------------------------------------------------------------------------------------");
+		
+		
 		
 		
 		ui.println("Now "+pilot.getName()+", please choose your location of deployment by typing its name: \n");
@@ -130,7 +160,7 @@ public class Game implements Runnable{
 				valid = true;
 				distance = 20;
 			}else if (userInput.equalsIgnoreCase("Night City")) {
-				//set location
+				pilot.setLocation(Map.map.get(game_locations.NIGHT.getLocationIndex()));
 				valid = true;
 				distance = 40;
 			}else if (userInput.equalsIgnoreCase("Pacific Ocean")) {
@@ -175,15 +205,16 @@ public class Game implements Runnable{
 		
 		ui.println("\nHQ: "+pilot.getName()+", based on this info, you can now customize your Guardian options and we will deliver the options to you through air service. Your guardian’s maximum potential is determined by the Overall Rating value, choose your items wisely to reach a high Overall Rating in order to operate your guardian. The maximum Overall Rating you can reach is 1000.\n");
 		
-		g.build();
-			
+		
+		g.buildRobot();
+		
 		while (!isFinal) {
 			ui.print("\nHQ: Have you finalized your decision? "); userInput = input.nextLine();
 			
 			if(userInput.equalsIgnoreCase("yes")) {
 				isFinal = true;
 			}else if(userInput.equalsIgnoreCase("no")){
-				g.reset(); g.build();
+				g.reset(); g.buildRobot();
 			}else {
 				ui.println("\nInvalid Command\n");
 			}
@@ -192,7 +223,7 @@ public class Game implements Runnable{
 		ui.println("HQ: Guardian Accessories CONFIRMED. Delivering items now…\n");
 		
 		try {
-			Thread.sleep(3000);
+			Thread.sleep(2000);
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -200,7 +231,32 @@ public class Game implements Runnable{
 		
 		ui.println(pilot.getName()+": Received items \n");
 		
+		try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		ui.println("\nHQ: OK "+pilot.getName()+", Here is our AI’s analysis of your Guardian’s surroundings. You are free to choose how to move around, you are on your own now. Good luck.\n");
+		
+		ui.println(pilot.getCurrentLocation().grid);
+		
+		ui.println("Here are the navigation options");
+		ui.println("1. Move Up\n"
+				+ "2. Move Left\n"
+				+ "3. Move Right\n"
+				+ "4. Move Down\n");
+		ui.print("Enter the option followed by the number of steps: "); 
+		userInput = input.nextLine();
+		Clean_text = filter(userInput);
+		Parsed_text = parse (Clean_text);
+		
+		int step = Integer.parseInt(Parsed_text.get(2));
+		
+		ui.println("step size = " + step);
+		
+		
 		
 	}
 }

@@ -8,6 +8,10 @@ public class Guardian {
 	private Rating rating;
 	private UI ui;
 	
+	Scanner scan = new Scanner(System.in);
+	int select; //user input
+	private boolean ratingNotExceeded = true; //rating should not exceed 1000
+
 	public Guardian() {
 		
 		rating = new Rating(0, 0, 0, 0); //rating is initially set to zero 
@@ -19,15 +23,17 @@ public class Guardian {
 		rating.setRating(0, 0, 0, 0);
 	}
 	
+	public void buildRobot() {		
+			addWeapons();
+			addArmor();		
+			addThrusters();
+			addEnergy();
+			getRating();
+	}
 	
-	public void build() {		
-		Scanner scan = new Scanner(System.in);
-		
-		int select; //user input
-		
+	private void addWeapons() {
 		
 		ui.println("\nCurrent Overall Rating: "+rating.sum()+ "/1000");
-		
 		
 		ui.println("Here are the list of available WEAPONS (Shows how much damage you deal to the enemy):\n"
 				+ "1. Pistol (50 ATK)\n"
@@ -69,6 +75,10 @@ public class Guardian {
 			rating.setATK(0);
 			break;
 		}
+				
+	}
+	
+	private void addArmor() {
 		
 		ui.println("\nCurrent Overall Rating: "+rating.sum()+ "/1000");
 		
@@ -104,80 +114,98 @@ public class Guardian {
 			break;
 		}
 	
-	ui.println("\nCurrent Overall Rating: "+rating.sum()+ "/1000");
-	
-	ui.println("\nHere are the list of available THRUSTERS (determines if you get to attack the enemy first or not):\n"
-			+ "1. Wheel Thruster (100 SPD)\n"
-			+ "2. Hover Thruster (250 SPD)\n"
-			+ "3. Sky Thruster (300 SPD)\n"
-			+ "4. Sound Breaker Thruster (400 SPD)\n"
-			+ "5. Light Exceed Thruster (500 SPD)\n");
-	
-	ui.print("Select Your THRUSTER by typing the number: ");
-	select = scan.nextInt();
-	
-	switch (select) {
-		
-		case 1: 
-			rating.setSPD(100);
-			break;
-		case 2:
-			rating.setSPD(250);
-			break;
-		case 3:
-			rating.setSPD(300);
-			break;
-		case 4:
-			rating.setSPD(400);
-			break;
-		case 5:
-			rating.setSPD(500);
-			break;
-		default:
-			rating.setSPD(0);
-			break;
-		}
-
-	ui.println("\nCurrent Overall Rating: "+rating.sum()+ "/1000");
-
-	ui.println("\nHere are the list of available ENERGY CELLS (shows how long you last in battle, 100 ENE=1 min):\n"
-			+ "1. Single Cell (100 ENE)\n"
-			+ "2. Dual Cell (250 ENE)\n"
-			+ "3. Triple Cell (300 ENE)\n"
-			+ "4. Quadra Cell (400 ENE)\n"
-			+ "5. Lifeforce Cell (500 ENE)\n");
-	
-	ui.print("Select Your THRUSTER by typing the number: ");
-	select = scan.nextInt();
-	
-	switch (select) {
-		
-		case 1: 
-			rating.setENE(100);
-			break;
-		case 2:
-			rating.setENE(250);
-			break;
-		case 3:
-			rating.setENE(300);
-			break;
-		case 4:
-			rating.setENE(400);
-			break;
-		case 5:
-			rating.setENE(500);
-			break;
-		default:
-			rating.setENE(0);
-			break;
-		}
-	
-	ui.println("\nCurrent Overall Rating: "+rating.sum()+ "/1000");
+	if(rating.sum()>1000) {
+		ratingNotExceeded = false;
+	}
 			
+	}
+
+	private void addThrusters() {
+		
+		ui.println("\nCurrent Overall Rating: "+rating.sum()+ "/1000");
+		
+		ui.println("\nHere are the list of available THRUSTERS (determines if you get to attack the enemy first or not):\n"
+				+ "1. Wheel Thruster (100 SPD)\n"
+				+ "2. Hover Thruster (250 SPD)\n"
+				+ "3. Sky Thruster (300 SPD)\n"
+				+ "4. Sound Breaker Thruster (400 SPD)\n"
+				+ "5. Light Exceed Thruster (500 SPD)\n");
+		
+		ui.print("Select Your THRUSTER by typing the number: ");
+		select = scan.nextInt();
+		
+		switch (select) {
+			
+			case 1: 
+				rating.setSPD(100);
+				break;
+			case 2:
+				rating.setSPD(250);
+				break;
+			case 3:
+				rating.setSPD(300);
+				break;
+			case 4:
+				rating.setSPD(400);
+				break;
+			case 5:
+				rating.setSPD(500);
+				break;
+			default:
+				rating.setSPD(0);
+				break;
+			}
+		
+		if(rating.sum()>1000) {
+			ratingNotExceeded = false;
+		}
+		
+	}
+	
+	private void addEnergy() {
+		
+		ui.println("\nCurrent Overall Rating: "+rating.sum()+ "/1000");
+
+		
+		ui.println("\nHere are the list of available ENERGY CELLS (shows how long you last in battle, 100 ENE=1 min):\n"
+				+ "1. Single Cell (100 ENE)\n"
+				+ "2. Dual Cell (250 ENE)\n"
+				+ "3. Triple Cell (300 ENE)\n"
+				+ "4. Quadra Cell (400 ENE)\n"
+				+ "5. Lifeforce Cell (500 ENE)\n");
+		
+		ui.print("Select Your THRUSTER by typing the number: ");
+		select = scan.nextInt();
+		
+		switch (select) {
+			
+			case 1: 
+				rating.setENE(100);
+				break;
+			case 2:
+				rating.setENE(250);
+				break;
+			case 3:
+				rating.setENE(300);
+				break;
+			case 4:
+				rating.setENE(400);
+				break;
+			case 5:
+				rating.setENE(500);
+				break;
+			default:
+				rating.setENE(0);
+				break;
+			}
+		
+		if(rating.sum()>1000) {
+			ratingNotExceeded = false;
+		}
 	}
 	
 	public void getRating() {
-		ui.println("\nYour rating is: "+this.rating.sum());
+		ui.println("\nCurrent Overall Rating: "+rating.sum()+ "/1000");
 	}
 	
 }

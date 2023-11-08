@@ -11,6 +11,7 @@ public abstract class Location{
 	
 	public String name;
 	public String map;
+	public String grid;
 	
 	public ArrayList<Object> objects;
 	public ArrayList<Character> characters;
