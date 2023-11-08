@@ -47,7 +47,7 @@ public class Game implements Runnable{
 		Scanner input = new Scanner(System.in);  //takes user input
 		String name;
 		String userInput;
-		boolean isReady = false; boolean valid = false;
+		boolean isReady = false; boolean valid = false; boolean isFinal = false;
 		int distance=0;
 		
 		String introString = "In the year 2050, the world grapples with food shortages, poverty, and the looming threat of global conflict over dwindling resources. A unified global organization, known as \"The Nexus,\" emerged, founded by an enigmatic figure. It brokered peace among nations and enforced equitable resource distribution. However, this newfound unity is put to the test when five colossal alien warships appear on the global stage.\n"
@@ -164,6 +164,7 @@ public class Game implements Runnable{
 		}
 		
 		ui.println("\nHQ: You have now arrived at: " + pilot.getCurrentLocation().name+"!");
+		ui.println(pilot.getCurrentLocation().map);
 		ui.println("Based on our analysis, here are all the information about the enemy demographic present here:\n");
 		
 		
@@ -175,7 +176,30 @@ public class Game implements Runnable{
 		ui.println("\nHQ: "+pilot.getName()+", based on this info, you can now customize your Guardian options and we will deliver the options to you through air service. Your guardian’s maximum potential is determined by the Overall Rating value, choose your items wisely to reach a high Overall Rating in order to operate your guardian. The maximum Overall Rating you can reach is 1000.\n");
 		
 		g.build();
+			
+		while (!isFinal) {
+			ui.print("\nHQ: Have you finalized your decision? "); userInput = input.nextLine();
+			
+			if(userInput.equalsIgnoreCase("yes")) {
+				isFinal = true;
+			}else if(userInput.equalsIgnoreCase("no")){
+				g.reset(); g.build();
+			}else {
+				ui.println("\nInvalid Command\n");
+			}
+		}
 		
+		ui.println("HQ: Guardian Accessories CONFIRMED. Delivering items now…\n");
+		
+		try {
+			Thread.sleep(3000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		ui.println(pilot.getName()+": Received items \n");
+		ui.println("\nHQ: OK "+pilot.getName()+", Here is our AI’s analysis of your Guardian’s surroundings. You are free to choose how to move around, you are on your own now. Good luck.\n");
 		
 	}
 }

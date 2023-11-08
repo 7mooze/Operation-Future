@@ -10,7 +10,7 @@ import Objects.Object;
 public abstract class Location{
 	
 	public String name;
-	public String description;
+	public String map;
 	
 	public ArrayList<Object> objects;
 	public ArrayList<Character> characters;

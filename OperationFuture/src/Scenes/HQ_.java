@@ -7,7 +7,7 @@ public class HQ_  extends Location{
 
 	public HQ_() {
 		name = "The HQ";
-		description = "Thello HQ\n";
+//		description = "Thello HQ\n";
 		
 	}	
 	

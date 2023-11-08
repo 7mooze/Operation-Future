@@ -12,6 +12,13 @@ public class Rating {
 		this.ENE = ENE;
 	}
 	
+	public void setRating(int ATK, int DEF, int SPD, int ENE) {
+		this.ATK = ATK;
+		this.DEF = DEF;
+		this.SPD = SPD;
+		this.ENE = ENE;
+	}
+	
 	public int getATK() {
 		return ATK;
 	}
