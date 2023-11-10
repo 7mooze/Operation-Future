@@ -44,15 +44,11 @@ public class NightCity extends Location implements State{
 
 	@Override
 	public void printStatus() {
-		for(int i=1; i<=40; i++) {
-			ui.println("Traveling to "+name+" in "+i+"s");
-			
-			try {
-				Thread.sleep(500);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		ui.print("Traveling to "+name); try {
+			ui.animateText("....", 4);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		ui.println("\nHQ: You have now arrived at: "+name+"!\n");

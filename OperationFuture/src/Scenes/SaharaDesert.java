@@ -41,18 +41,15 @@ public class SaharaDesert extends Location implements State{
 		currentLocation.setState(new NightCity());
 	}
 
+	
 	@Override
 	public void printStatus() {
 		
-		for(int i=1; i<=10; i++) {
-			ui.println("Traveling to "+name+" in "+i+"s");
-			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+		ui.print("Traveling to "+name); try {
+			ui.animateText("...", 3);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		ui.println("\nHQ: You have now arrived at: "+name+"!\n");
