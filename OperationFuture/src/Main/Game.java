@@ -116,46 +116,7 @@ public class Game implements Runnable{
 				ui.println("\nInvalid Command\n");
 			}
 		}
-		
-		
-//		while(!valid) {
-//			ui.println("1. Sahara Desert - 10 km away\n" // let 1 km equal 1 second\
-//					+ "2. Prominent City - 20 km away\n"
-//					+ "3. Night City - 40 km away\n"
-//					+ "4. Pacific Ocean - 50 km away\n"
-//					+ "5. Antarctica - 100 km away\n");
-//			
-//			userInput = input.nextLine();
-//			
-//			if(userInput.equalsIgnoreCase("Sahara Desert")) {
-//				pilot.setLocation(Map.map.get(game_locations.SAHARA.getLocationIndex()));
-//				distance = 10;
-//				valid = true;
-//			}else if(userInput.equalsIgnoreCase("Prominent City")) {
-//				pilot.setLocation(Map.map.get(game_locations.PROMINENT.getLocationIndex()));
-//				valid = true;
-//				distance = 20;
-//			}else if (userInput.equalsIgnoreCase("Night City")) {
-//				pilot.setLocation(Map.map.get(game_locations.NIGHT.getLocationIndex()));
-//				valid = true;
-//				distance = 40;
-//			}else if (userInput.equalsIgnoreCase("Pacific Ocean")) {
-//				pilot.setLocation(Map.map.get(game_locations.PACIFIC.getLocationIndex()));
-//				valid = true;
-//				distance = 50;
-//			}else if (userInput.equalsIgnoreCase("Antarctica")) {
-//				pilot.setLocation(Map.map.get(game_locations.ANTARCTICA.getLocationIndex()));
-//				valid = true;
-//				distance = 100;
-//			}else {
-//				//invalid location, try again
-//				ui.println("\nInvalid location, try again\n");
-//				ui.println("Please choose your location of deployment by typing its name: \n");
-//				
-//			}
-//			
-//		}
-		
+				
 		ui.println("");
 		
 		pilot.nextLocation();
