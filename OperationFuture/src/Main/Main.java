@@ -49,8 +49,8 @@ public class Main
 //			Thread.sleep( 50 );
 //		}*/
 		
-		Game gmae = new Game();
-		
+		Game game = new Game();
+		game.startGame();
 		
 	}
 

@@ -24,6 +24,9 @@ public class Game implements Runnable{
 	public Game() {
 		
 		game = new Thread (this);
+	}
+	
+	public void startGame() {
 		game.start();
 	}
 
@@ -74,8 +77,7 @@ public class Game implements Runnable{
 		ArrayList<String> Parsed_text = null;
 		
 		
-		boolean isReady = false; boolean valid = false; boolean isFinal = false;
-		int distance=0;
+		boolean isReady = false; boolean isFinal = false;
 		
 		String introString = "In the year 2050, the world grapples with food shortages, poverty, and the looming threat of global conflict over dwindling resources. A unified global organization, known as \"The Nexus,\" emerged, founded by an enigmatic figure. It brokered peace among nations and enforced equitable resource distribution. However, this newfound unity is put to the test when five colossal alien warships appear on the global stage.\n"
 				+ "\n"
@@ -97,6 +99,12 @@ public class Game implements Runnable{
 		
 		ui.println("\nVictor: Now, "+pilot.getName()+"! You will continue fighting against these mysterious robots, and free the humans from their invasion until we find any info about who is their puppetmaster. This HQ will help you with your missions assisting you with important information.\n");
 		
+		
+		ui.println("\nHQ: Here are the locations of the warships. Upon arrival at your preferred location, we will give you information about the enemy robots through our efficient AI algorithms. Your goal is to destroy the robot controlling the other soldier robots in each region. Doing so will free the location from any more threats.\n\nTo win this war, you need to reach the hidden location which, based on our AI analysis, has assumed its presence on the map but cannot be confirmed unless we defeat all these warships. \n");
+			
+		pilot.printStatus();
+		
+		
 		while (!isReady) {
 			ui.print("Are you ready? "); userInput = input.nextLine();
 			
@@ -109,102 +117,52 @@ public class Game implements Runnable{
 			}
 		}
 		
-		ui.println("\nHQ: Here are the locations of the warships. Upon arrival at your preferred location, we will give you information about the enemy robots through our efficient AI algorithms. Your goal is to destroy the robot controlling the other soldier robots in each region. Doing so will free the location from any more threats.\n\nTo win this war, you need to reach the hidden location which, based on our AI analysis, has assumed its presence on the map but cannot be confirmed unless we defeat all these warships. \n");
-			
-		ui.println("          . _..::__:  ,-\"-\"._       |]       ,     _,.__              \n"
-				+ "  _.___ _ _<_>`!(._`.`-.    /        _._     `_ ,_/  '  '-._.---.-.__ \n"
-				+ ".{     \" \" `-==,',._\\{  \\  / {)     / _ \">_,-' `                 /-/_ \n"
-				+ " \\_.:--.       `._ )`^-. \"'      , [_/(                       __,/-'  \n"
-				+ "'\"'     \\         \"    _L       |-_,--'          "+colorText("\u25C9 Prominent City", 255,0,0)+" /. (|    \n"
-				+ "         |        "+colorText("\u25C9 Night city", 255, 0,0)+"    _)_.\\\\._<> {}              _,' /  '   \n"     //green 51,204,51
-				+ "         `.         /          [_/_'` `\"(                <'}  )       \n"
-				+ "          \\\\    .-. )          /   `-'\"..'  "+colorText("\u25C9 HQ", 0,0,255)+"            _)  '        \n"
-				+ "            \\  (  `(          /         `:\\  > \\  ,-^.  /' '          \n"
-				+ "             `._,   \"\"        | "+colorText("Sahara Desert", 255, 0, 0)+"   \\`'   \\|   ?_)  {\\          \n"
-				+ "                `=.---.       `._._       ,'     \"`  |' ,- '.         \n"
-				+ "                  |    `-._        |     /          `:`<_|=--._       \n"
-				+ "   "+ colorText("Pacific Ocean", 255, 0, 0) +"  (        >       .     | ,          `=.__.`-'\\      \n"
-				+ "                   `.     /        |     |{|              ,-.,\\     . \n"
-				+ "                    |   ,'          \\   / `'            ,\"     \\      \n"
-				+ "                    |  /             |_'                |  __  /      \n"
-				+ "                    | |                                 '-'  `-'   \\. "+colorText("\u25C9 Hidden Location", 110, 0,4)+" \n"
-				+ "                    |/                                        \"    /  \n"
-				+ "                    \\.                                            '      \n"
-				+ "                                                                             .—---------------------.\n"
-				+ "                     ,/           ______._.--._ _..---.---------.            | "+colorText("\u25C9 Current Location", 0,0,255)+"   |\n"
-				+ "__,-----\"-..?----_/ )\\    . ,-'\"             \"                  (__--/       | "+colorText("\u25C9 Cleared Location", 51,204,51)+"   |\n"
-				+ "                      /__/\\/              Antarctica                         | "+colorText("\u25C9 Remaining Location", 255, 0, 0)+" | \n"
-				+ " 									      —---------------------		      			\n"
-				+ "------------------------------------------------------------------------------------------------------");
 		
-		
-		
-		
-		ui.println("Now "+pilot.getName()+", please choose your location of deployment by typing its name: \n");
-		
-		while(!valid) {
-			ui.println("1. Sahara Desert - 10 km away\n" // let 1 km equal 1 second\
-					+ "2. Prominent City - 20 km away\n"
-					+ "3. Night City - 40 km away\n"
-					+ "4. Pacific Ocean - 50 km away\n"
-					+ "5. Antarctica - 100 km away\n");
-			
-			userInput = input.nextLine();
-			
-			if(userInput.equalsIgnoreCase("Sahara Desert")) {
-				pilot.setLocation(Map.map.get(game_locations.SAHARA.getLocationIndex()));
-				distance = 10;
-				valid = true;
-			}else if(userInput.equalsIgnoreCase("Prominent City")) {
-				pilot.setLocation(Map.map.get(game_locations.PROMINENT.getLocationIndex()));
-				valid = true;
-				distance = 20;
-			}else if (userInput.equalsIgnoreCase("Night City")) {
-				pilot.setLocation(Map.map.get(game_locations.NIGHT.getLocationIndex()));
-				valid = true;
-				distance = 40;
-			}else if (userInput.equalsIgnoreCase("Pacific Ocean")) {
-				pilot.setLocation(Map.map.get(game_locations.PACIFIC.getLocationIndex()));
-				valid = true;
-				distance = 50;
-			}else if (userInput.equalsIgnoreCase("Antarctica")) {
-				pilot.setLocation(Map.map.get(game_locations.ANTARCTICA.getLocationIndex()));
-				valid = true;
-				distance = 100;
-			}else {
-				//invalid location, try again
-				ui.println("\nInvalid location, try again\n");
-				ui.println("Please choose your location of deployment by typing its name: \n");
-				
-			}
-			
-		}
+//		while(!valid) {
+//			ui.println("1. Sahara Desert - 10 km away\n" // let 1 km equal 1 second\
+//					+ "2. Prominent City - 20 km away\n"
+//					+ "3. Night City - 40 km away\n"
+//					+ "4. Pacific Ocean - 50 km away\n"
+//					+ "5. Antarctica - 100 km away\n");
+//			
+//			userInput = input.nextLine();
+//			
+//			if(userInput.equalsIgnoreCase("Sahara Desert")) {
+//				pilot.setLocation(Map.map.get(game_locations.SAHARA.getLocationIndex()));
+//				distance = 10;
+//				valid = true;
+//			}else if(userInput.equalsIgnoreCase("Prominent City")) {
+//				pilot.setLocation(Map.map.get(game_locations.PROMINENT.getLocationIndex()));
+//				valid = true;
+//				distance = 20;
+//			}else if (userInput.equalsIgnoreCase("Night City")) {
+//				pilot.setLocation(Map.map.get(game_locations.NIGHT.getLocationIndex()));
+//				valid = true;
+//				distance = 40;
+//			}else if (userInput.equalsIgnoreCase("Pacific Ocean")) {
+//				pilot.setLocation(Map.map.get(game_locations.PACIFIC.getLocationIndex()));
+//				valid = true;
+//				distance = 50;
+//			}else if (userInput.equalsIgnoreCase("Antarctica")) {
+//				pilot.setLocation(Map.map.get(game_locations.ANTARCTICA.getLocationIndex()));
+//				valid = true;
+//				distance = 100;
+//			}else {
+//				//invalid location, try again
+//				ui.println("\nInvalid location, try again\n");
+//				ui.println("Please choose your location of deployment by typing its name: \n");
+//				
+//			}
+//			
+//		}
 		
 		ui.println("");
 		
-		for(int i=1; i<=distance; i++) {
-			ui.println("Traveling to " + pilot.getCurrentLocation().name+" in "+i+"s");
+		pilot.nextLocation();
+		
+		pilot.printStatus();
 			
-			try {
-				Thread.sleep(1000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
-		
-		ui.println("\nHQ: You have now arrived at: " + pilot.getCurrentLocation().name+"!");
-		ui.println(pilot.getCurrentLocation().map);
-		ui.println("Based on our analysis, here are all the information about the enemy demographic present here:\n");
-		
-		
-		for(int i=0; i <pilot.getCurrentLocation().aliens.size(); i++) {
-		
-			ui.println("- "+pilot.getCurrentLocation().aliens.get(i).printAlien());
-		}
-		
 		ui.println("\nHQ: "+pilot.getName()+", based on this info, you can now customize your Guardian options and we will deliver the options to you through air service. Your guardian’s maximum potential is determined by the Overall Rating value, choose your items wisely to reach a high Overall Rating in order to operate your guardian. The maximum Overall Rating you can reach is 1000.\n");
-		
 		
 		g.buildRobot();
 		
@@ -240,7 +198,7 @@ public class Game implements Runnable{
 		
 		ui.println("\nHQ: OK "+pilot.getName()+", Here is our AI’s analysis of your Guardian’s surroundings. You are free to choose how to move around, you are on your own now. Good luck.\n");
 		
-		ui.println(pilot.getCurrentLocation().grid);
+		pilot.printGrid();
 		
 		ui.println("Here are the navigation options");
 		ui.println("1. Move Up\n"
@@ -254,7 +212,14 @@ public class Game implements Runnable{
 		
 		int step = Integer.parseInt(Parsed_text.get(2));
 		
-		ui.println("step size = " + step);
+		//ui.println("step size = " + step);
+		
+		
+		pilot.nextLocation();
+		pilot.printStatus();
+		
+		pilot.nextLocation();
+		pilot.printStatus();
 		
 		
 		

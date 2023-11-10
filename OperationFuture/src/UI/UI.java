@@ -14,5 +14,10 @@ public class UI {
 		System.out.print(charAt);
 		
 	}
+	
+	public String colorText( String text, int r, int g, int b ) 
+	{
+		return "\u001b[38;2;" + r + ";" + g + ";" + b + "m" + text + "\u001b[0m";
+	}
 
 }
