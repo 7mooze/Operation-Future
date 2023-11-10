@@ -106,7 +106,7 @@ public class Game implements Runnable{
 		
 		
 		while (!isReady) {
-			ui.print("Are you ready? "); userInput = input.nextLine();
+			ui.print("HQ: Are you ready "+pilot.getName()+"? "); userInput = input.nextLine();
 			
 			if(userInput.equalsIgnoreCase("yes")) {
 				isReady = true;
@@ -214,9 +214,11 @@ public class Game implements Runnable{
 		
 		//ui.println("step size = " + step);
 		
-		
+		ui.println(" ");
 		pilot.nextLocation();
 		pilot.printStatus();
+		
+		ui.println(" ");
 		
 		pilot.nextLocation();
 		pilot.printStatus();
