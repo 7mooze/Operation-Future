@@ -29,8 +29,16 @@ public class UI
 	
 	public synchronized String nextLine() 
 	{
-		System.out.print("\033[38;2;0;255;0m");
+		System.out.print("\033[38;2;51;204;51m"); //51,204,51
 		String temp = sysin.nextLine();
+		System.out.print("\u001b[0m");
+		return temp;
+	}
+	
+	public synchronized int nextInt() 
+	{
+		System.out.print("\033[38;2;51;204;51m"); //51,204,51
+		int temp = sysin.nextInt();
 		System.out.print("\u001b[0m");
 		return temp;
 	}

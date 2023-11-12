@@ -8,7 +8,6 @@ public class Guardian {
 	private Rating rating;
 	private UI ui;
 	
-	Scanner scan = new Scanner(System.in);
 	int select; //user input
 	private boolean ratingNotExceeded = true; //rating should not exceed 1000
 
@@ -46,7 +45,7 @@ public class Guardian {
 				+ "7. Nuclear Cannon (500 ATK)\n");
 		
 		ui.print("Select Your WEAPON by typing the number: ");
-		select = scan.nextInt();
+		select = ui.nextInt();
 		
 		
 		switch (select) {
@@ -91,7 +90,7 @@ public class Guardian {
 				+ "5. Ultimate Armor (500 DEF)\n");
 		
 		ui.print("Select Your ARMOR by typing the number: ");
-		select = scan.nextInt();
+		select = ui.nextInt();
 		
 	switch (select) {
 		
@@ -133,7 +132,7 @@ public class Guardian {
 				+ "5. Light Exceed Thruster (500 SPD)\n");
 		
 		ui.print("Select Your THRUSTER by typing the number: ");
-		select = scan.nextInt();
+		select = ui.nextInt();
 		
 		switch (select) {
 			
@@ -176,7 +175,7 @@ public class Guardian {
 				+ "5. Lifeforce Cell (500 ENE)\n");
 		
 		ui.print("Select Your THRUSTER by typing the number: ");
-		select = scan.nextInt();
+		select = ui.nextInt();
 		
 		switch (select) {
 			

@@ -40,11 +40,6 @@ public class Game implements Runnable{
 		}
 	}
 	
-	public static String colorText( String text, int r, int g, int b ) 
-	{
-		return "\u001b[38;2;" + r + ";" + g + ";" + b + "m" + text + "\u001b[0m";
-	}
-	
 	private String filter(String input) 
 	{
 	
@@ -73,7 +68,7 @@ public class Game implements Runnable{
 		
 		
 		if(size < 1 || size > 4) {
-			System.out.println("\n >> you can only enter 1 to 4 words. try again");
+			ui.println("\nyou can only enter 1 to 4 words. try again");
 		}else if(size == 2 && firstWord.equals("move")) {
 			pilot.move(input);
 		}else if (size == 1 && firstWord.equals("show")) {
@@ -82,7 +77,7 @@ public class Game implements Runnable{
 			pilot.use(input);
 		}else {
 			
-			System.out.println("\n >> Invalid Command\n");
+			ui.println("\nInvalid Command\n");
 		}
 				
 	}
@@ -91,7 +86,7 @@ public class Game implements Runnable{
 	public void run() 
 	{
 		
-		Scanner input = new Scanner(System.in);  //takes user input
+		//Scanner input = new Scanner(System.in);  //takes user input
 		String name = null;
 		String userInput = null;
 		String Clean_text = null;
@@ -118,7 +113,7 @@ public class Game implements Runnable{
 		}
 		
 		ui.println("Welcome Pilot!");
-		ui.print("Enter your name: "); name = input.nextLine(); pilot.setName(name);
+		ui.print("Enter your name: "); name = ui.nextLine(); pilot.setName(name);
 		
 		ui.println("\nVictor: Now, "+pilot.getName()+"! You will continue fighting against these mysterious robots, and free the humans from their invasion until we find any info about who is their puppetmaster. This HQ will help you with your missions assisting you with important information.\n");
 		
@@ -159,7 +154,7 @@ public class Game implements Runnable{
 		
 		while (!isFinal) 
 		{
-			ui.print("\nHQ: Have you finalized your decision? "); userInput = input.nextLine();
+			ui.print("\nHQ: Have you finalized your decision? "); userInput = ui.nextLine();
 			
 			if(userInput.equalsIgnoreCase("yes")) 
 			{
@@ -211,7 +206,7 @@ public class Game implements Runnable{
 		
 		for (boolean loop_again = true; loop_again !=false; ) {
 			
-			userInput = input.nextLine();
+			userInput = ui.nextLine();
 			Clean_text = filter(userInput);
 			Parsed_text = parse (Clean_text);
 				
