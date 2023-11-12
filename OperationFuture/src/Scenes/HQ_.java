@@ -1,7 +1,6 @@
 package Scenes;
 
 import Main.Pilot;
-import Map.Map;
 import Map.State;
 import UI.UI;
 
