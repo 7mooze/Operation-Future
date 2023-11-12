@@ -45,7 +45,8 @@ public class Game implements Runnable{
 		return "\u001b[38;2;" + r + ";" + g + ";" + b + "m" + text + "\u001b[0m";
 	}
 	
-	private String filter(String input) {
+	private String filter(String input) 
+	{
 	
 		String Clean_text = input;
 		
@@ -57,25 +58,24 @@ public class Game implements Runnable{
 	}
 	
 	
-	private ArrayList<String> parse(String input){
+	private ArrayList<String> parse(String input)
+	{
 		
 		String[] parsedText = input.split(" ");
-		
 		ArrayList<String> Parsed_Text = new ArrayList<String>(Arrays.asList(parsedText));
-		
 		return Parsed_Text;
 	}
 	
 	
 	@Override
-	public void run() {
+	public void run() 
+	{
 		
 		Scanner input = new Scanner(System.in);  //takes user input
 		String name;
 		String userInput;
 		String Clean_text = null;
 		ArrayList<String> Parsed_text = null;
-		
 		
 		boolean isReady = false; boolean isFinal = false;
 		
@@ -88,9 +88,12 @@ public class Game implements Runnable{
 				+ "Victor: Pilot, with this Guardian, we'll finally stand up against the alien menace and reclaim our world!\n"
 				+ "\n";
 		
-		try {
+		try 
+		{
 			animateText(introString);
-		} catch (InterruptedException e) {
+		} 
+		catch (InterruptedException e) 
+		{
 			e.printStackTrace();
 		}
 		
@@ -105,14 +108,20 @@ public class Game implements Runnable{
 		pilot.printStatus();
 		
 		
-		while (!isReady) {
-			ui.print("HQ: Are you ready "+pilot.getName()+"? "); userInput = input.nextLine();
+		while (!isReady) 
+		{
+			ui.print("HQ: Are you ready " + pilot.getName() + "? "); userInput = ui.nextLine();
 			
-			if(userInput.equalsIgnoreCase("yes")) {
+			if(userInput.equalsIgnoreCase("yes")) 
+			{
 				isReady = true;
-			}else if(userInput.equalsIgnoreCase("no")){
+			}
+			else if(userInput.equalsIgnoreCase("no"))
+			{
 				ui.println("\nVictor: YOU HAVE TO BE READY, "+pilot.getName().toUpperCase()+"!\n");
-			}else {
+			}
+			else 
+			{
 				ui.println("\nInvalid Command\n");
 			}
 		}
@@ -127,33 +136,42 @@ public class Game implements Runnable{
 		
 		g.buildRobot();
 		
-		while (!isFinal) {
+		while (!isFinal) 
+		{
 			ui.print("\nHQ: Have you finalized your decision? "); userInput = input.nextLine();
 			
-			if(userInput.equalsIgnoreCase("yes")) {
+			if(userInput.equalsIgnoreCase("yes")) 
+			{
 				isFinal = true;
-			}else if(userInput.equalsIgnoreCase("no")){
+			}
+			else if(userInput.equalsIgnoreCase("no"))
+			{
 				g.reset(); g.buildRobot();
-			}else {
+			}
+			else 
+			{
 				ui.println("\nInvalid Command\n");
 			}
 		}
 		
 		ui.println("HQ: Guardian Accessories CONFIRMED. Delivering items now…\n");
 		
-		try {
+		try 
+		{
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} 
+		catch (InterruptedException e) 
+		{
 			e.printStackTrace();
 		}
 		
 		ui.println(pilot.getName()+": Received items \n");
 		
-		try {
+		try 
+		{
 			Thread.sleep(2000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+		} catch (InterruptedException e) 
+		{
 			e.printStackTrace();
 		}
 		

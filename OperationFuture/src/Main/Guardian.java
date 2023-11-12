@@ -19,7 +19,8 @@ public class Guardian {
 
 	}
 	
-	public void reset() {
+	public void reset() 
+	{
 		rating.setRating(0, 0, 0, 0);
 	}
 	

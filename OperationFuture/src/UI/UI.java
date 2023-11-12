@@ -1,18 +1,38 @@
 package UI;
 
-public class UI {
+import java.util.Scanner;
+
+public class UI
+{
+	private static Scanner sysin;
 	
-	public synchronized void print(String s) {
+	public UI() 
+	{
+		sysin = new Scanner(System.in);
+	}
+
+	public synchronized void print(String s) 
+	{
 		System.out.print(s);
 	}
 	
-	public synchronized void println(String s) {
+	public synchronized void println(String s) 
+	{
 		System.out.println(s);
 	}
 
-	public synchronized void print(char charAt) {
+	public synchronized void print(char charAt) 
+	{
 		System.out.print(charAt);
 		
+	}
+	
+	public synchronized String nextLine() 
+	{
+		System.out.print("\033[38;2;0;255;0m");
+		String temp = sysin.nextLine();
+		System.out.print("\u001b[0m");
+		return temp;
 	}
 	
 	public synchronized String colorText( String text, int r, int g, int b ) 
