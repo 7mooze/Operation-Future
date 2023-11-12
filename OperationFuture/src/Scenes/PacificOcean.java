@@ -38,7 +38,7 @@ public class PacificOcean extends Location implements State {
 
 	@Override
 	public void next(Pilot currentLocation) {
-		// TODO Auto-generated method stub
+		currentLocation.setState(new ProminentCity());
 		
 	}
 

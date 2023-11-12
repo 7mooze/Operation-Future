@@ -170,7 +170,7 @@ public class Game implements Runnable{
 			}
 		}
 		
-		ui.println("HQ: Guardian Accessories CONFIRMED. Delivering items now…\n");
+		ui.println("\nHQ: Guardian Accessories CONFIRMED. Delivering items now…\n");
 		
 		try 
 		{
@@ -213,12 +213,6 @@ public class Game implements Runnable{
 			gridLoop (Parsed_text);
 			
 		}
-		
-		
-		
-		
-		
-		
 		
 		
 //		int step = Integer.parseInt(Parsed_text.get(2));
