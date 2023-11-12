@@ -6,8 +6,8 @@ import java.util.Scanner;
 
 import UI.UI;
 import Characters.HQ; //should not extend character
-import Map.Map;
-import Map.game_locations;
+import Grids.grid_boxes;
+import Sahara_grid.SaharaGrid;
 import Scenes.*;
 
 public class Game implements Runnable{
@@ -66,14 +66,34 @@ public class Game implements Runnable{
 		return Parsed_Text;
 	}
 	
+	private void gridLoop(ArrayList<String> input) {
+		
+		int size = input.size();
+		String firstWord = input.get(0);
+		
+		
+		if(size < 1 || size > 4) {
+			System.out.println("\n >> you can only enter 1 to 4 words. try again");
+		}else if(size == 2 && firstWord.equals("move")) {
+			pilot.move(input);
+		}else if (size == 1 && firstWord.equals("show")) {
+			pilot.show(input);
+		}else if ((size == 2 || size == 3) && firstWord.equals("use")) {
+			pilot.use(input);
+		}else {
+			
+			System.out.println("\n >> Invalid Command\n");
+		}
+				
+	}
 	
 	@Override
 	public void run() 
 	{
 		
 		Scanner input = new Scanner(System.in);  //takes user input
-		String name;
-		String userInput;
+		String name = null;
+		String userInput = null;
 		String Clean_text = null;
 		ArrayList<String> Parsed_text = null;
 		
@@ -131,6 +151,7 @@ public class Game implements Runnable{
 		pilot.nextLocation();
 		
 		pilot.printStatus();
+		pilot.setGrid(SaharaGrid.grid.get(grid_boxes.LEFT.getGridIndex())); //inital player location in the grid
 			
 		ui.println("\nHQ: "+pilot.getName()+", based on this info, you can now customize your Guardian options and we will deliver the options to you through air service. Your guardian’s maximum potential is determined by the Overall Rating value, choose your items wisely to reach a high Overall Rating in order to operate your guardian. The maximum Overall Rating you can reach is 1000.\n");
 		
@@ -179,28 +200,44 @@ public class Game implements Runnable{
 		
 		pilot.printGrid();
 		
-		ui.println("Here are the navigation options");
+		
+		ui.println("\nHere are the available commands");
 		ui.println("1. Move Up\n"
 				+ "2. Move Left\n"
 				+ "3. Move Right\n"
-				+ "4. Move Down\n");
-		ui.print("Enter the option followed by the number of steps: "); 
-		userInput = input.nextLine();
-		Clean_text = filter(userInput);
-		Parsed_text = parse (Clean_text);
+				+ "4. Move Down\n"
+				 +"5. Show\n");
 		
-		int step = Integer.parseInt(Parsed_text.get(2));
+		
+		for (boolean loop_again = true; loop_again !=false; ) {
+			
+			userInput = input.nextLine();
+			Clean_text = filter(userInput);
+			Parsed_text = parse (Clean_text);
+				
+			gridLoop (Parsed_text);
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+//		int step = Integer.parseInt(Parsed_text.get(2));
 		
 		//ui.println("step size = " + step);
 		
-		ui.println(" ");
-		pilot.nextLocation();
-		pilot.printStatus();
-		
-		ui.println(" ");
-		
-		pilot.nextLocation();
-		pilot.printStatus();
+//		ui.println(" ");
+//		pilot.nextLocation();
+//		pilot.printStatus();
+//		
+//		ui.println(" ");
+//		
+//		pilot.nextLocation();
+//		pilot.printStatus();
 		
 		
 		
